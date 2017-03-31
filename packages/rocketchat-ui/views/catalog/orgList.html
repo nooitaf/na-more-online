@@ -1,0 +1,45 @@
+
+<template name="orgList">
+
+        <header class="fixed-title border-component-color">
+            {{> burger}}
+
+            <div class="iconback">
+                <i class="icon-angle-left"></i>
+            </div>
+
+            <h2>
+                <span class="room-title margin-left-remove">{{title}}</span>
+            </h2>
+        </header>
+        <div class="content-orgs">
+            {{#if isReady}}
+            <div class="panel-720">
+                    <ul class="orgs-list">
+                        {{#each orgListItem}}
+                                <li>
+                                    <a href="{{pathFor 'org-item' catalogurl=catalogurl org=_id}}" class="org-panel">
+                                        <div class="cover">
+                                                <div class="cover-image  tertiary-background-color secondary-font-color {{#unless mainImg}}question-mark icon-camera{{/unless}}" style="background-image:url({{mainImg}})"></div>
+                                        </div>
+                                    </a>
+                                        <div class="org-info">
+                                            <button class="button like-user" value="{{_id}}"><span><i class="icon-heart"></i>{{votes.length}}</span></button>
+                                            <h3>{{name}}</h3>
+                                            <p>{{adress}}</p>
+                                        </div>
+                                </li>
+                        {{/each}}
+                    </ul>
+
+                {{#if hasMore}}
+                  <button class="button secondary load-more {{isLoading}}">{{_ "Load_more"}}</button>
+                {{/if}}
+                </div>
+            {{else}}
+                {{> loading}}
+            {{/if}}
+        </div>
+
+</template>
+

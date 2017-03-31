@@ -1,0 +1,85 @@
+<template name="sideNav">
+	<aside class="side-nav primary-background-color color-tertiary-font-color" role="navigation">
+		<header class="header">
+			{{> accountBox }}
+		</header>
+		{{#if currentUser}}
+			{{> toolbar}}
+			<div class="unread-rooms background-primary-action-color color-primary-action-contrast top-unread-rooms hidden">
+				{{_ "More_unreads"}} <i class="icon-up-big"></i>
+			</div>
+
+
+			<div class="rooms-list" aria-label='{{_ "Channels"}}' role="region">
+				<div class="wrapper">
+					{{> unreadRooms }}
+
+
+
+					<h3 class="side-btn-div background-transparent-darker-hover">
+							<i class="toolbar-search__icon icon-location"></i>
+							<select name="city" id="city" class="color-content-background-color city-select">
+								{{#each citys}}
+								<option value="{{name}}" class="primary-background-color" selected="{{$eq city name}}"  >{{runame}}</option>
+								{{/each}}
+							</select>
+						</h3>
+
+
+
+					{{#each roomType}}
+						{{#if canShowRoomType}}
+							{{> Template.dynamic template=templateName }}
+						{{/if}}
+					{{/each}}
+
+					{{#if canViewHistory}}
+						<h3 class="history-div">
+							<a href="{{pathFor 'privateHistory'}}">{{_ "History"}}</a>
+						</h3>
+					{{/if}}
+
+					<h3 class="side-btn-div background-transparent-darker-hover">
+						<i class="toolbar-search__icon icon-bullseye"></i>
+						<a href="{{pathFor 'nearby'}}" class="close-left-menu">{{_ "Near_me"}}</a>
+					</h3>
+
+					<h3 class="side-btn-div background-transparent-darker-hover {{#unless ruletka}}active{{/unless}}">
+						<i class="toolbar-search__icon icon-user"></i>
+						<button class="close-left-menu {{#if ruletka}}ruletka{{/if}}">{{_ "Ruletka"}}</button>
+						{{#unless ruletka}}
+							<span class='opt wait'>
+									<i class="icon-spin" title="{{_ "В процессе"}}" aria-label="{{_ "В процессе"}}"></i>
+							</span>
+						{{/unless}}
+					</h3>
+
+					<h3 class="side-btn-div background-transparent-darker-hover">
+						<i class="toolbar-search__icon icon-th-large"></i>
+						<a href="{{pathFor 'catalog-list'}}" class="close-left-menu">{{_ "Catalog"}}</a>
+					</h3>
+
+
+
+					<h3 class="side-btn-div background-transparent-darker-hover">
+						<i class="toolbar-search__icon icon-bell"></i>
+						<a href="{{pathFor 'notifications'}}" class="close-left-menu">{{_ "Notifications"}}</a>
+						<span class="unread">10</span>
+					</h3>
+				</div>
+			</div>
+			<div class="unread-rooms background-primary-action-color color-primary-action-contrast bottom-unread-rooms hidden">
+				{{_ "More_unreads"}} <i class="icon-down-big"></i>
+			</div>
+			<div class="flex-nav primary-background-color animated-hidden">
+				<section>
+					{{> Template.dynamic template=flexTemplate data=flexData}}
+				</section>
+			</div>
+			<span class="arrow bottom"></span>
+		{{/if}}
+		<footer class="footer">
+			{{{footer}}}
+		</footer>
+	</aside>
+</template>

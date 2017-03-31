@@ -1,0 +1,17 @@
+<template name="privateGroups">
+
+	<h3 class="side-btn-div {{isActive}}">
+		<i class="toolbar-search__icon icon-eye"></i>
+		{{_ "Private_Groups"}}
+	</h3>
+	<ul>
+		{{#each rooms}}
+			{{> chatRoomItem }}
+		{{else}}
+			<p class="empty">{{_ "No_groups_yet" }}</p>
+		{{/each}}
+	</ul>
+	{{#if $gt total totalOpen}}
+		<button class="more more-groups background-transparent-darker-hover">{{_ "More_groups"}}...</button>
+	{{/if}}
+</template>

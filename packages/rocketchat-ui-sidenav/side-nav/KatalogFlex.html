@@ -1,0 +1,41 @@
+<template name="KatalogFlex">
+	<header class="primary-background-color">
+		<div>
+			<h4>Каталог организаций</h4>
+		</div>
+	</header>
+	<div class="content primary-background-color">
+		<div class="wrapper">
+			<ul class="katalog-side">
+				{{#each organizations}}
+					{{> subKatalogFlex  title=this.name suborganizations=this.list}}
+				{{/each}}
+			</ul>
+
+		</div>
+	</div>
+</template>
+
+
+<template name="subKatalogFlex">
+	<li><h3 class="btn-katalog">{{title}} {{#if openSubKatalogFlag}}<i class="right-icon icon-angle-down"></i>{{else}}<i class="right-icon icon-angle-right"></i>{{/if}}</h3>
+		{{#if openSubKatalogFlag}}
+			<div class="animated-hidden option">
+				{{#each list}}
+					{{> subKatalog subtitle=this.subtitle}}
+				{{/each}}
+			</div>
+		{{else}}
+
+		{{/if}}
+	</li>
+</template>
+
+
+
+<template name="subKatalog">
+	<a href="{{pathFor 'catalog' group=subtitle}}"  class="subkatalog">
+		<div class="image" style="background-image:url(/avatar/new3?_dc=0);"></div>
+		<h4>{{subtitle}}</h4>
+	</a>
+</template>

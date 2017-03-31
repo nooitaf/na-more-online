@@ -1,0 +1,159 @@
+<template name="accountProfile">
+	<section class="page-container page-home page-static">
+		<header class="fixed-title border-component-color">
+			{{> burger}}
+			<h2>
+				<span class="room-title">{{_ "Profile"}}</span>
+			</h2>
+		</header>
+		<div class="content">
+			<div class="rocket-form">
+				<fieldset>
+					<div class="input-line">
+						<label for="realname">{{_ "Name"}}</label>
+						<div>
+							<input type="text" name="realname" id="realname" value="{{realname}}" />
+						</div>
+					</div>
+					<div class="input-line hidden">
+						<label for="username">{{_ "Username"}}</label>
+						<div>
+						{{#if allowUsernameChange}}
+							<input type="text" name="username" id="username" value="{{username}}" />
+						{{else}}
+							<input type="text" name="username" id="username" value="{{username}}" readonly="readonly" title="{{usernameChangeDisabled}}" />
+						{{/if}}
+						</div>
+					</div>
+					<div class="input-line">
+						<label for="email">{{_ "Email"}}</label>
+						<div>
+						{{#if emailVerified}}
+							<div class="right">
+								<i class="icon-ok success-color" title="{{_ "Email_verified" }}"></i>
+							</div>
+						{{/if}}
+						{{#if allowEmailChange}}
+							<input type="email" name="email" id="email" value="{{email}}" />
+						{{else}}
+							<input type="email" name="email" id="email" value="{{email}}" readonly="readonly" title="{{emailChangeDisabled}}" />
+						{{/if}}
+						{{#unless emailVerified}}
+							<div class="text-right">
+								<button class="button" id="resend-verification-email">{{_ "Resend_verification_email"}}</button>
+							</div>
+						{{/unless}}
+						</div>
+					</div>
+					<div class="input-line">
+						<label for="password">{{_ "New_password"}}</label>
+						<div>
+						{{#if allowPasswordChange}}
+							<input type="password" name="password" id="password" />
+						{{else}}
+							<input type="password" name="password" id="password" disabled readonly="readonly" title="{{passwordChangeDisabled}}" placeholder="{{passwordChangeDisabled}}"/>
+						{{/if}}
+						</div>
+					</div>
+					<div class="input-line">
+						<label for="orientation">{{_ "Custom_Fields_Orientation"}}</label>
+						<div>
+							<select name="orientation" id="orientation" >
+								<option></option>
+								{{#if Orn_Custom_Fields_Orientation_Getero}}<option value="Custom_Fields_Orientation_Getero" selected>{{_ "Custom_Fields_Orientation_Getero"}}</option>{{else}}<option  value="Custom_Fields_Orientation_Getero">{{_ "Custom_Fields_Orientation_Getero"}}</option>{{/if}}
+								{{#if Orn_Custom_Fields_Orientation_Bi}}<option value="Custom_Fields_Orientation_Bi" selected>{{_ "Custom_Fields_Orientation_Bi"}}</option>{{else}}<option value="Custom_Fields_Orientation_Bi">{{_ "Custom_Fields_Orientation_Bi"}}</option>{{/if}}
+								{{#if Orn_Custom_Fields_Orientation_Lesbi}}<option value="Custom_Fields_Orientation_Lesbi" selected>{{_ "Custom_Fields_Orientation_Lesbi"}}</option>{{else}}<option value="Custom_Fields_Orientation_Lesbi">{{_ "Custom_Fields_Orientation_Lesbi"}}</option>{{/if}}
+								{{#if Orn_Custom_Fields_Orientation_Gey}}<option value="Custom_Fields_Orientation_Gey" selected>{{_ "Custom_Fields_Orientation_Gey"}}</option>{{else}}<option value="Custom_Fields_Orientation_Gey">{{_ "Custom_Fields_Orientation_Gey"}}</option>{{/if}}
+								{{#if Orn_Custom_Fields_Orientation_Trans}}<option value="Custom_Fields_Orientation_Trans" selected>{{_ "Custom_Fields_Orientation_Trans"}}</option>{{else}}<option value="Custom_Fields_Orientation_Trans">{{_ "Custom_Fields_Orientation_Trans"}}</option>{{/if}}
+							</select>
+						</div>
+					</div>
+					<div class="input-line">
+						<label for="sex">{{_ "Custom_Fields_Sex"}}</label>
+						<div>
+							<select name="sex" id="sex" >
+								<option></option>
+								 {{#if Op_Sex_Female}}<option value="Female" selected>{{_ "Female"}}</option>{{else}}<option value="Female">{{_ "Female"}}</option>{{/if}}
+								 {{#if Op_Sex_Male}}<option value="Male" selected>{{_ "Male"}}</option>{{else}}<option value="Male" >{{_ "Male"}}</option>{{/if}}
+
+							</select>
+						</div>
+					</div>
+
+					<div class="input-line">
+						<label for="mood">{{_ "Custom_Fields_Status"}} - Настроение</label>
+						<div>
+							<input type="text" name="mood" id="mood" value="{{#if mood}}{{mood}}{{/if}}" />
+						</div>
+					</div>
+
+					<div class="input-line">
+						<label for="description">{{_ "Custom_Fields_Description"}}</label>
+						<div>
+							<input type="text" name="description" id="description" value="{{#if description}}{{description}}{{/if}}" />
+						</div>
+					</div>
+
+					<div class="input-line">
+						<label for="interes">{{_ "Custom_Fields_Interes"}}</label>
+						<div>
+							<input type="text" name="interes" id="interes" value="{{#if interes}}{{interes}}{{/if}}" />
+						</div>
+					</div>
+
+					<div class="input-line">
+						<label for="birthday">{{_ "Custom_Fields_Birthday"}}</label>
+						<div>
+							<input type="date" name="birthday" id="birthday" value="{{birthday}}" />
+						</div>
+					</div>
+
+					<div class="input-line">
+						<label for="restdate">{{_ "Custom_Fields_RestDate"}}</label>
+						<div>
+							<input type="date" name="restdate" id="restdate" value="{{restdate}}" />
+						</div>
+					</div>
+
+					<div class="input-line">
+						<label for="homecity">{{_ "Custom_Fields_HomeCity"}}</label>
+						<div>
+							<input type="text" name="homecity" id="homecity" value="{{#if homecity}}{{homecity}}{{/if}}"/>
+						</div>
+					</div>
+
+					<div class="input-line">
+						<label for="mobile">{{_ "Custom_Fields_Mobile"}}</label>
+						<div>
+							<input type="text" name="mobile" id="mobile" value="{{#if mobile}}{{mobile}}{{/if}}" />
+						</div>
+					</div>
+
+					<div class="input-line">
+						<label for="where">{{_ "Custom_Fields_Where"}}</label>
+						<div>
+							<input type="text" name="where" id="where" value="{{#if where}}{{where}}{{/if}}" />
+						</div>
+					</div>
+
+
+				</fieldset>
+
+				<fieldset>
+					{{> customFieldsForm hideFromForm=false formData=customFields}}
+				</fieldset>
+				<div class="submit">
+					<button class="button primary send"><i class="icon-send"></i><span>{{_ "Save_changes"}}</span></button>
+				</div>
+				<div class="logoutOthers">
+					<button class="button logout">{{_ "Logout_Others"}}</button>
+				</div>
+				{{#if allowDeleteOwnAccount}}
+				<div class="delete-account text-right">
+					<button class="button danger delete"><i class="icon-trash"></i><span>{{_ "Delete_my_account"}}</span></button>
+				</div>
+				{{/if}}
+			</div>
+		</div>
+	</section>
+</template>

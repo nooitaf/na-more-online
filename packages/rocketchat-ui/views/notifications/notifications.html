@@ -1,0 +1,223 @@
+<template name="notifications">
+    <div class="main-content-flex">
+        <section class="messages-container flex-tab-main-content" id="{{windowId}}" aria-label="{{_ "Notifications"}}">
+
+        <header class="fixed-title">
+            {{> burger}}
+            <h2>
+                <i class="{{roomIcon}} status-{{userStatus}}"></i>
+                <span class="room-title">{{_ "Notifications"}}</span><br>
+
+            </h2>
+        </header>
+
+        <div class="container-bars {{containerBarsShow unreadData uploading}}">
+            {{#with unreadData}}
+            {{#if since}}
+            {{#if count}}
+            <div class="unread-bar color-primary-action-color background-component-color">
+                <button class="jump-to">
+                    <span class="jump-to-large">{{_ "Jump_to_first_unread"}}</span>
+                    <span class="jump-to-small">{{_ "Jump"}}</span>
+                </button>
+									<span class="unread-count-since">
+										{{_ "S_new_messages_since_s" count formatUnreadSince}}
+									</span>
+									<span class="unread-count">
+										{{_ "N_new_messages" count}}
+									</span>
+                <button class="mark-read">
+                    {{_ "Mark_as_read"}}
+                </button>
+            </div>
+            {{/if}}
+            {{/if}}
+            {{/with}}
+        </div>
+
+        <div class="messages-box {{#if selectable}}selectable{{/if}} {{viewMode}}">
+            <div class="ticks-bar"></div>
+            <button class="new-message background-primary-action-color color-content-background-color not">
+                <i class="icon-down-big"></i>
+                {{_ "New_messages"}}
+            </button>
+            <div class="jump-recent background-component-color {{#unless hasMoreNext}}not{{/unless}}">
+                <button>{{_ "Jump_to_recent_messages"}} <i class="icon-level-down"></i></button>
+            </div>
+
+
+            <div class="wrapper {{#if hasMoreNext}}has-more-next{{/if}}">
+                <ul aria-live="polite">
+
+                    {{#if hasMore}}
+                    <li class="load-more">
+                        {{#if isLoading}}
+                        {{> loading}}
+                        {{/if}}
+                    </li>
+                    {{else}}
+                    <li class="start color-info-font-color">
+                        {{_ "Start_of_conversation"}}
+                    </li>
+                    {{/if}}
+
+                    {{#each messagesHistory}}
+                    {{#nrr nrrargs 'message' .}}{{/nrr}}
+                    {{/each}}
+                    {{#if hasMoreNext}}
+                    <li class="load-more">
+                        {{#if isLoading}}
+                        {{> loading}}
+                        {{/if}}
+                    </li>
+                    {{/if}}
+                    <li id="YbXxjtW69ADfQNDu7" class="message background-transparent-dark-hover system uj"
+                        data-username="grigory" data-groupable="false" data-date="28 марта 2017 г."
+                        data-timestamp="1490690778527">
+
+                        <button class="thumb user-card-message" data-username="grigory" tabindex="1">
+                            <div class="avatar">
+                                <div class="avatar-image" style="background-image:url(/avatar/grigory?_dc=0);"></div>
+                            </div>
+                        </button>
+
+                        <button type="button" class="user user-card-message color-primary-font-color"
+                                data-username="grigory" tabindex="1">grigory
+                        </button>
+
+                        <span class="info border-component-color color-info-font-color">
+                            <span class="time" title="28 марта 2017 г. 11:46">11:46</span>
+                            <div class="message-cog-container ">
+                                <i class="icon-cog message-cog" aria-label="Actions"></i>
+                            </div>
+                        </span>
+                        <div class="body color-primary-font-color color-info-font-color" dir="auto">Присоединился к чату.</div>
+                    </li>
+
+                    <li id="YbXxjtW69ADfQNDu7" class="message background-transparent-dark-hover system uj"
+                        data-username="grigory" data-groupable="false" data-date="28 марта 2017 г."
+                        data-timestamp="1490690778527">
+
+                        <button class="thumb user-card-message" data-username="grigory" tabindex="1">
+                            <div class="avatar">
+                                <div class="avatar-image" style="background-image:url(/avatar/grigory?_dc=0);"></div>
+                            </div>
+                        </button>
+
+                        <button type="button" class="user user-card-message color-primary-font-color"
+                                data-username="grigory" tabindex="1">grigory
+                        </button>
+
+                        <span class="info border-component-color color-info-font-color">
+                            <span class="time" title="28 марта 2017 г. 11:46">11:46</span>
+                            <div class="message-cog-container ">
+                                <i class="icon-cog message-cog" aria-label="Actions"></i>
+                            </div>
+                        </span>
+                        <div class="body color-primary-font-color color-info-font-color" dir="auto">Присоединился к чату.</div>
+                    </li>
+
+                    <li id="YbXxjtW69ADfQNDu7" class="message background-transparent-dark-hover system uj"
+                        data-username="grigory" data-groupable="false" data-date="28 марта 2017 г."
+                        data-timestamp="1490690778527">
+
+                        <button class="thumb user-card-message" data-username="grigory" tabindex="1">
+                            <div class="avatar">
+                                <div class="avatar-image" style="background-image:url(/avatar/grigory?_dc=0);"></div>
+                            </div>
+                        </button>
+
+                        <button type="button" class="user user-card-message color-primary-font-color"
+                                data-username="grigory" tabindex="1">grigory
+                        </button>
+
+                        <span class="info border-component-color color-info-font-color">
+                            <span class="time" title="28 марта 2017 г. 11:46">11:46</span>
+                            <div class="message-cog-container ">
+                                <i class="icon-cog message-cog" aria-label="Actions"></i>
+                            </div>
+                        </span>
+                        <div class="body color-primary-font-color color-info-font-color" dir="auto">Отметил вашу анкету.</div>
+                    </li>
+
+                    <li id="YbXxjtW69ADfQNDu7" class="message background-transparent-dark-hover system uj"
+                        data-username="grigory" data-groupable="false" data-date="28 марта 2017 г."
+                        data-timestamp="1490690778527">
+
+                        <button class="thumb user-card-message" data-username="grigory" tabindex="1">
+                            <div class="avatar">
+                                <div class="avatar-image" style="background-image:url(/avatar/grigory?_dc=0);"></div>
+                            </div>
+                        </button>
+
+                        <button type="button" class="user user-card-message color-primary-font-color"
+                                data-username="grigory" tabindex="1">grigory
+                        </button>
+
+                        <span class="info border-component-color color-info-font-color">
+                            <span class="time" title="28 марта 2017 г. 11:46">11:46</span>
+                            <div class="message-cog-container ">
+                                <i class="icon-cog message-cog" aria-label="Actions"></i>
+                            </div>
+                        </span>
+                        <div class="body color-primary-font-color color-info-font-color" dir="auto">Предложил акцию.</div>
+                    </li>
+
+                    <li id="8nzjE8GoiRRPMGLH5" class="message background-transparent-dark-hover system uj new-day"
+                        data-username="stuullirrgss" data-groupable="false" data-date="28 марта 2017 г."
+                        data-timestamp="1490684018905">
+
+                        <button class="thumb user-card-message" data-username="stuullirrgss" tabindex="1">
+                            <div class="avatar">
+                                <div class="avatar-image"
+                                     style="background-image:url(/avatar/stuullirrgss?_dc=0);"></div>
+                            </div>
+                        </button>
+
+                        <button type="button" class="user user-card-message color-primary-font-color"
+                                data-username="stuullirrgss" tabindex="1">stuullirrgss
+                        </button>
+
+                        <span class="info border-component-color color-info-font-color">
+                        <span class="time" title="28 марта 2017 г. 9:53">9:53</span>
+
+
+                            <div class="message-cog-container ">
+                                <i class="icon-cog message-cog" aria-label="Actions"></i>
+                            </div>
+                        </span>
+                        <div class="body color-primary-font-color color-info-font-color" dir="auto">Отметил вашу анкету.</div>
+                    </li>
+
+
+                    <li id="YbXxjtW69ADfQNDu7" class="message background-transparent-dark-hover system uj"
+                        data-username="grigory" data-groupable="false" data-date="28 марта 2017 г."
+                        data-timestamp="1490690778527">
+
+                        <button class="thumb user-card-message" data-username="grigory" tabindex="1">
+                            <div class="avatar">
+                                <div class="avatar-image" style="background-image:url(/avatar/grigory?_dc=0);"></div>
+                            </div>
+                        </button>
+
+                        <button type="button" class="user user-card-message color-primary-font-color"
+                                data-username="grigory" tabindex="1">grigory
+                        </button>
+
+                        <span class="info border-component-color color-info-font-color">
+                            <span class="time" title="28 марта 2017 г. 11:46">11:46</span>
+                            <div class="message-cog-container ">
+                                <i class="icon-cog message-cog" aria-label="Actions"></i>
+                            </div>
+                        </span>
+                        <div class="body color-primary-font-color color-info-font-color" dir="auto">Побывал в интересном месте.</div>
+                    </li>
+                </ul>
+            </div>
+        </div>
+        </section>
+        {{#with flexData}}
+        {{> flexTabBar}}
+        {{/with}}
+    </div>
+</template>

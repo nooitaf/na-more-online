@@ -1,0 +1,199 @@
+<template name="userInfo">
+	{{#if isLoading}}
+		{{> loading}}
+	{{else}}
+		{{#if editingUser}}
+			{{> userEdit (userToEdit)}}
+		{{else}}
+			{{#with user}}
+			<div class="about clearfix">
+				<div class="user-head">
+					<button class='button customback'><span><i class='icon-cancel'></i></span></button>
+
+					<button class='button like-user'><span><i class='icon-heart'></i> {{likes}}</span></button>
+				</div>
+
+				<div class="user-status">
+					<i class="icon-circle status-{{status}}"></i>
+					<h3 title="{{username}}">{{name}}</h3>
+					{{#if dist}}<span class="age">{{_ "From_you"}} {{dist}} километрах</span>{{/if}}
+				</div>
+
+				{{#if canDirectMessage user.username}}
+				<div class="user-btns">
+					<button class='button customsave'><span>{{_ "Conversation_Start"}}</span></button>
+					{{#if user.active}}
+						{{> videoButtons}}
+					{{/if}}
+					{{#if isDirect}}
+						{{#if isBlocker}}
+						<button class='button customsave unblock-user'><span><i class="icon-block"></i></span></button>
+						{{else}}
+						<button class='button customcansel block-user'><span><i class="icon-block"></i></span></button>
+						{{/if}}
+					{{/if}}
+				</div>
+				{{/if}}
+
+				<div class="thumb">
+					{{> avatar username=username}}
+				</div>
+
+				<div class="gallery">
+					<ul style="width:{{width user.username}}px;">
+						{{#unless canDirectMessage user.username}}
+							<li>
+								<div class="img-place-small custsom-style-button-upload">
+									<div class="img-upload avatar tertiary-background-color question-mark icon-plus-squared secondary-font-color">
+									</div>
+									<input type="file" name="img-upload" class="input" id="gal-upload" accept="image/*"  >
+								</div>
+							</li>
+						{{/unless}}
+						{{#each gallery}}
+						<li class="del-img">
+							<div class="img-place-small custsom-style-button-upload">
+								<div class="img-upload avatar" style="background-image: url(/file-upload/{{this.id}}/{{this.name}});"></div>
+								<img src="/file-upload/{{this.id}}/{{this.name}}"  class="gallery-item invisible" >
+							</div>
+
+						</li>
+						{{/each}}
+					</ul>
+				</div>
+
+				<div class="info">
+
+					{{#if allData.orgs}}
+					<p><label>{{_ "My_places"}}:</label></p>
+
+					<ul class="visitors">
+							{{#each allData.orgs}}
+							{{> userOrg org=this}}
+							{{/each}}
+					</ul>
+					{{/if}}
+
+					{{#if Mood}}<p><label>{{_ "Custom_Fields_Status"}}:</label> {{Mood}}</p>{{/if}}
+					{{#if Sex}}<p><label>{{_ "Custom_Fields_Sex"}}:</label> {{Sex}}</p>{{/if}}
+					{{#if Restdate}}<p><label>{{_ "Custom_Fields_Birthday"}}:</label> {{Birthday}}</p>{{/if}}
+					{{#if Orientation}}<p><label>{{_ "Custom_Fields_Orientation"}}:</label> {{Orientation}}</p>{{/if}}
+					{{#if Description}}<p><label>{{_ "Custom_Fields_Description"}}:</label> {{Description}}</p>{{/if}}
+					{{#if Interes}}<p><label>{{_ "Custom_Fields_Interes"}}:</label> {{Interes}}</p>{{/if}}
+					{{#if Homecity}}<p><label>{{_ "Custom_Fields_HomeCity"}}:</label> {{Homecity}}</p>{{/if}}
+					{{#if Mobile}}<p><label>{{_ "Custom_Fields_Mobile"}}:</label> {{Mobile}}</p>{{/if}}
+					{{#if Where}}<p><label>{{_ "Arrived_at_rest"}}:</label> {{_ "To"}} {{Restdate}}</p>{{/if}}
+					{{#if Where}}<p><label>{{_ "Custom_Fields_Where"}}:</label> {{Where}}</p>{{/if}}
+
+
+					{{#if roleTags}}
+					<p><label>Должность: </label>
+						{{#each roleTags}}
+							<span class="role-tag" data-role="{{description}}">{{description}}</span>
+						{{/each}}
+					</p>
+					{{/if}}
+
+					{{#if hasPermission 'view-full-other-user-info'}}
+						{{#if hasEmails}}
+							{{#each emails}} <p ><label><i class="icon-mail"></i></label> {{address}}{{#if verified}}&nbsp;<i class="icon-ok success-color"></i>{{/if}}</p> {{/each}}
+						{{/if}}
+						{{#if hasPhone}}
+							{{#each phone}} <p ><label><i class="icon-phone"></i></label> {{phoneNumber}}</p> {{/each}}
+						{{/if}}
+						{{#if lastLogin}} <p ><label>{{_ "Created_at"}}:</label> {{createdAt}}</p> {{/if}}
+						{{#if lastLogin}} <p ><label>{{_ "Last_login"}}:</label> {{lastLogin}}</p> {{/if}}
+
+						{{#if services.facebook.id}} <p ><label></label><i class="icon-facebook"></i><a href="{{services.facebook.link}}" target="_blank">{{services.facebook.name}}</a></p> {{/if}}
+						{{#if services.github.id}} <p ><label></label><i class="icon-github-circled"></i><a href="https://www.github.com/{{services.github.username}}" target="_blank">{{services.github.username}}</a></p> {{/if}}
+						{{#if services.gitlab.id}} <p ><label></label><i class="icon-gitlab"></i>{{services.gitlab.username}}</p> {{/if}}
+						{{#if services.google.id}} <p ><label></label><i class="icon-gplus"></i><a href="https://plus.google.com/{{services.google.id}}" target="_blank">{{services.google.name}}</a></p> {{/if}}
+						{{#if services.linkedin.id}} <p ><label></label><i class="icon-linkedin"></i><a href="{{services.linkedin.publicProfileUrl}}" target="_blank">{{linkedinUsername}}</a></p> {{/if}}
+						{{#if servicesMeteor.id}} <p ><label></label><i class="icon-meteor"></i>{{servicesMeteor.username}}</p> {{/if}}
+						{{#if services.twitter.id}} <p ><label></label><i class="icon-twitter"></i><a href="https://twitter.com/{{services.twitter.screenName}}" target="_blank">{{services.twitter.screenName}}</a></p> {{/if}}
+						{{#if services.wordpress.id}} <p ><label></label><i class="icon-wordpress"></i>{{services.wordpress.user_login}}</p> {{/if}}
+					{{/if}}
+				</div>
+			</div>
+			{{/with}}
+			<nav>
+
+
+				{{#if showAll}}
+					{{#if canDirectMessage user.username}}
+						<button class='button button-block primary pvt-msg'><span><i class='icon-chat'></i> {{_ "Conversation"}}</span></button> {{/if}}
+					{{#if canSetOwner}}
+						{{#if isOwner}}
+							<button class="button button-block danger unset-owner"><span>{{_ "Remove_as_owner"}}</span></button>
+						{{else}}
+							<button class="button button-block tertiary set-owner"><span>{{_ "Set_as_owner"}}</span></button>
+						{{/if}}
+					{{/if}}
+					{{#if canSetModerator}}
+						{{#if isModerator}}
+							<button class="button button-block danger unset-moderator"><span>{{_ "Remove_as_moderator"}}</span></button>
+						{{else}}
+							<button class="button button-block tertiary set-moderator"><span>{{_ "Set_as_moderator"}}</span></button>
+						{{/if}}
+					{{/if}}
+					{{#if canMuteUser}}
+						{{#if userMuted}}
+							<button class="button button-block secondary unmute-user primary"><span>{{_ "Unmute_user"}}</span></button>
+						{{else}}
+							<button class="button button-block danger mute-user"><span>{{_ "Mute_user"}}</span></button>
+						{{/if}}
+					{{/if}}
+					{{#if canRemoveUser}}
+						<button class="button button-block danger remove-user"><span>{{_ "Remove_from_room"}}</span></button>
+					{{/if}}
+				{{/if}}
+
+				{{#unless hideAdminControls}}
+					{{#if hasPermission 'edit-other-user-info'}}
+
+
+
+				<button class='button button-block primary edit-user'><span><i class='icon-edit'></i> {{_ "Edit"}}</span></button>
+					{{/if}}
+					{{#if hasPermission 'assign-admin-role'}}
+						{{#if hasAdminRole}}
+						<button class='button button-block danger remove-admin'><span><i class='icon-shield'></i> {{_ "Remove_Admin"}}</span></button>
+						{{else}}
+						<button class='button button-block secondary make-admin'><span><i class='icon-shield'></i> {{_ "Make_Admin"}}</span></button>
+						{{/if}}
+					{{/if}}
+					{{#if hasPermission 'edit-other-user-active-status'}}
+						{{#if active}}
+						<button class='button button-block danger deactivate'><span><i class='icon-block'></i> {{_ "Deactivate"}}</span></button>
+						{{else}}
+						<button class='button button-block secondary activate'><span><i class='icon-ok-circled'></i> {{_ "Activate"}}</span></button>
+						{{/if}}
+					{{/if}}
+					{{#if hasPermission 'delete-user'}}
+					<button class='button button-block danger delete'><span><i class='icon-trash'></i> {{_ "Delete"}}</span></button>
+					{{/if}}
+				{{/unless}}
+
+				{{#if showAll}}
+
+				<button class='button back'><span>{{_ "View_All"}} <i class='icon-angle-right'></i></span></button>
+				{{/if}}
+			</nav>
+		{{/if}}
+	{{/if}}
+</template>
+
+
+
+<template name="userOrg">
+	<li>
+		<a href="/catalog/{{data.category}}/{{data._id}}">
+			<div class="cover">
+				<div class="cover-image"
+					 style="background-image:url({{data.mainImg}})">
+				</div>
+			</div>
+			<h3>{{data.name}}</h3>
+		</a>
+	</li>
+</template>

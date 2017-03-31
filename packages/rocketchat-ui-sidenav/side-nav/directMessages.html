@@ -1,0 +1,21 @@
+<template name="directMessages">
+
+	<h3 class="side-btn-div openDirectMessages background-transparent-darker-hover {{isActive}}">
+		<i class="toolbar-search__icon icon-mail"></i>
+		{{_ "Direct_Messages"}}
+		<span class='opt'>
+				<i class="{{#if openDirectMessages}}icon-angle-down{{else}}icon-angle-right{{/if}}" title="{{_ "Direct_Messages"}}" aria-label="{{_ "Direct_Messages"}}"></i>
+		</span>
+	</h3>
+	{{#if openDirectMessages}}
+		<ul>
+
+				{{#each rooms}}
+					{{> chatRoomItem }}
+				{{else}}
+					<p class="empty">{{_ "No_direct_messages_yet" }}</p>
+				{{/each}}
+
+		</ul>
+	{{/if}}
+</template>

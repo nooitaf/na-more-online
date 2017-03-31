@@ -1,0 +1,92 @@
+<template name="nearby">
+    <div class="main-content-flex">
+        <section class="page-container page-home page-static flex-tab-main-content ">
+            <header class="fixed-title border-component-color">
+                {{> burger}}
+                <h2>
+                    <span class="room-title">{{_ "Near_me"}}</span>
+                </h2>
+            </header>
+            <div class="content-orgs">
+
+                <div class="list-view">
+                    <div class="panel-500 col-2">
+                        <h2 class="admin-integrations-new-item-title">{{_ "People"}}</h2>
+                        <ul class="list clearfix lines nearlist">
+                            {{#each applications}}
+
+                            <li class="user-image user-card-room status-online">
+                                <button data-username="{{username}}" tabindex="0" title="{{username}}">
+                                    <div class="avatar">
+                                        <div class="avatar-image" style="background-image:url(/avatar/{{username}}?_dc=0);"></div>
+                                    </div>
+                                    <p>{{#unless name}}{{username}}{{else}}{{name}}{{/unless}}</p>
+                                </button>
+                            </li>
+
+                            {{/each}}
+                        </ul>
+                        {{#if hasMore}}
+                        <button class="button secondary load-more {{isLoading}}">{{_ "Load_more"}}</button>
+                        {{/if}}
+                    </div>
+
+                    <div class="panel-500 col-2">
+
+                    </div>
+                </div>
+            </div>
+        </section>
+        {{#with flexData}}
+            {{> flexTabBar}}
+        {{/with}}
+    </div>
+</template>
+
+
+<template name="nearbySettings">
+    <div class="content">
+        <div class="list-view push-notifications">
+            <div class="title">
+                <h2>{{_ "Settings"}}</h2>
+            </div>
+                <ul class="list clearfix search-user">
+                    <li>
+                        <label>{{_ "City"}}</label>
+                        <h3 class="side-btn-div background-transparent-darker-hover">
+                            <select name="city" id="city" class="color-content-background-color city-select">
+                                <option value="" class="primary-background-color"  >{{_ "All"}}</option>
+                                {{#each citys}}
+                                <option value="{{name}}" class="primary-background-color" selected="{{$eq city name}}"  >{{runame}}</option>
+                                {{/each}}
+                            </select>
+                        </h3>
+                    </li>
+                    <li>
+                        <label>{{_ "Пол"}}</label>
+                        <div>
+                            <label class="whitelable"><input name="sex" value="Male" type="checkbox"> М</label>
+                            <label class="whitelable"><input name="sex" value="Female" type="checkbox"> Ж</label>
+                        </div>
+                    </li>
+
+                </ul>
+
+            <div>
+                <label><input type="checkbox" name="sex" value="Male"> {{_ "Male"}}</label>
+                <label><input type="checkbox" name="sex" value="Female"> {{_ "Female"}}</label>
+            </div>
+            <div>
+                <label><input type="radio" name="active" value="all"> {{_ "All"}}</label>
+                <label><input type="radio" name="active" value="true"> {{_ "Active"}}</label>
+                <label><input type="radio" name="active" value="false"> {{_ "Offline"}}</label>
+            </div>
+
+        </div>
+        <ul class="list clearfix">
+
+        </ul>
+
+    </div>
+</template>
+

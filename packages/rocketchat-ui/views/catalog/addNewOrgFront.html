@@ -1,0 +1,105 @@
+
+<template name="addNewOrgFront">
+    <section class="page-container page-home page-static">
+        <header class="fixed-title border-component-color">
+            {{> burger}}
+            <h2>
+                <span class="room-title">{{_ "New_Org"}}</span>
+            </h2>
+        </header>
+        <div class="content">
+            <div class="section-content">
+
+                <div class="input-line double-col">
+                    <label>{{_ "Org_Name"}}</label>
+                    <div>
+                        <input type="text" name="name" value="" />
+                        <div class="settings-description secondary-font-color">{{_ "Org_Adress_Example"}}</div>
+                    </div>
+                </div>
+
+                <div class="input-line double-col">
+                    <label>{{_ "Org_Adress"}}</label>
+                    <div>
+                        <input type="text" name="adress" value="" />
+                        <div class="settings-description secondary-font-color">{{_ "Org_Adress_Example"}}</div>
+                    </div>
+                </div>
+
+                <div class="input-line double-col">
+                    <label>{{_ "Org_Descr"}}</label>
+                    <div>
+                        <input type="text" name="description" value="" />
+                        <div class="settings-description secondary-font-color">{{_ "Give_the_org_a_name_This_will_be_seen_by_your_users"}}</div>
+                    </div>
+                </div>
+                <div class="input-line double-col">
+                    <label>{{_ "Org_phone"}}</label>
+                    <div>
+                        <input type="text" name="phone" value="" />
+                        <div class="settings-description secondary-font-color">{{_ "Give_the_org_a_name_This_will_be_seen_by_your_users"}}</div>
+                    </div>
+                </div>
+
+                <div class="input-line double-col">
+                    <label>{{_ "Org_website"}}</label>
+                    <div>
+                        <input type="text" name="website" value="" />
+                        <div class="settings-description secondary-font-color">{{_ "Give_the_org_a_name_This_will_be_seen_by_your_users"}}</div>
+                    </div>
+                </div>
+
+                <div class="input-line double-col">
+                    <label>{{_ "Org_Category"}}</label>
+                    <div>
+                        <select name="category">
+                            {{#each categorys}}
+                                <option value="{{url}}" >{{name}}</option>
+                            {{/each}}
+                        </select>
+                    </div>
+                </div>
+
+
+                <div class="input-line double-col">
+                    <label>{{_ "Select_org_img"}}</label>
+                    <div class="img-place custsom-style-button-upload">
+                        <div style="background-image: url({{upload.blob}});"
+                             class="img-upload avatar tertiary-background-color secondary-font-color {{#unless upload}}question-mark icon-camera{{/unless}}">
+                        </div>
+
+                            <input type="file" name="img-upload" class="input" id="img-upload" accept="image/*"  >
+
+                    </div>
+                </div>
+                <div class="input-line double-col">
+                    <label>{{_ "Select_org_gal"}}</label>
+                    <ul id="gallery">
+                        <li>
+                            <div class="img-place-small custsom-style-button-upload">
+                                <div class="img-upload avatar tertiary-background-color question-mark icon-plus-squared secondary-font-color">
+                                </div>
+                                <input type="file" name="img-upload" class="input" id="gal-upload" accept="image/*"  >
+                            </div>
+                        </li>
+                        {{#each uploadgallery}}
+                            <li class="del-img">
+                                <div class="img-place-small custsom-style-button-upload">
+                                    <div class="img-upload avatar" style="background-image: url({{.}});"></div>
+                                </div>
+                            </li>
+                        {{/each}}
+
+                    </ul>
+                </div>
+
+                <div class="submit">
+                    <button class="button primary cancel"><i class="icon-send"></i><span>{{_ "Cancel"}}</span></button>
+                    {{#unless savingorg}}<button class="button primary save"><i class="icon-send"></i><span>{{_ "Send_Moderate"}}</span></button>{{/unless}}
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+</template>

@@ -1,0 +1,25 @@
+<template name="channels">
+
+	<h3 class="side-btn-div openChannelList background-transparent-darker-hover {{isActive}}">
+		<i class="toolbar-search__icon icon-chat-empty"></i>
+		{{_ "Channels"}}
+		<!--{{_ "Channels"}} <span class="room-count-small">({{rooms.count}})</span>-->
+		<span class='opt'>
+				<i class="{{#if openChannelList}}icon-angle-down{{else}}icon-angle-right{{/if}}" title="{{_ "Leave_room"}}" aria-label="{{_ "Leave_room"}}"></i>
+		</span>
+	</h3>
+	{{#if openChannelList}}
+		<ul>
+			{{#each rooms}}
+			{{> chatRoomItem }}
+			{{else}}
+			<p class="empty">{{_ "No_channels_yet" }}</p>
+			{{/each}}
+		</ul>
+		<button class="more more-channels background-transparent-darker-hover">{{_ "More_channels"}}...</button>
+
+	{{/if}}
+
+
+
+</template>

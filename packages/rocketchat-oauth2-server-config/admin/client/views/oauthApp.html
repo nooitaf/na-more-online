@@ -1,0 +1,351 @@
+<template name="oauthApp">
+	<section class="page-container page-list flex-tab-main-content">
+		<header class="fixed-title border-component-color">
+			<div class="burger">
+				<i></i>
+				<i></i>
+				<i></i>
+
+			</div>
+			<a href="{{pathFor "admin-oauth-apps"}}"><i class="icon-angle-left"></i></a>
+			<h2>
+				<span class="room-title float-right">{{_ "Oauth-apps"}}</span>
+			</h2>
+		</header>
+
+		<div class="content-orgs">
+			<div class="section-content">
+						{{#if hasPermission}}
+						<div class="input-line double-col">
+							<label>{{_ "Active"}}</label>
+							<div>
+								<label><input class="input-monitor" type="radio" name="active" value="1" checked="{{$eq data.active true}}" /> {{_ "True"}}</label>
+								<label><input class="input-monitor" type="radio" name="active" value="0" checked="{{$eq data.active false}}" /> {{_ "False"}}</label>
+							</div>
+						</div>
+						<div class="input-line double-col">
+							<label>{{_ "Application_Name"}}</label>
+							<div>
+								<input type="text" name="name" value="{{data.name}}" />
+								<div class="settings-description secondary-font-color">{{_ "Give_the_application_a_name_This_will_be_seen_by_your_users"}}</div>
+							</div>
+						</div>
+						<div class="input-line double-col">
+							<label>{{_ "Redirect_URI"}}</label>
+							<div>
+								<input type="text" name="redirectUri" value="{{data.redirectUri}}" />
+								<div class="settings-description secondary-font-color">{{_ "After_OAuth2_authentication_users_will_be_redirected_to_this_URL"}}</div>
+							</div>
+						</div>
+						{{#if data.clientId}}
+							<div class="input-line double-col">
+								<label>{{_ "Client_ID"}}</label>
+								<div>
+									<input type="text" name="clientId" value="{{data.clientId}}" readonly="readonly" />
+									<div class="settings-description secondary-font-color"><button class="clipboard" data-clipboard-target="[name=clientId]">{{_ "COPY_TO_CLIPBOARD"}}</button></div>
+								</div>
+							</div>
+							<div class="input-line double-col">
+								<label>{{_ "Client_Secret"}}</label>
+								<div>
+									<input type="text" name="clientSecret" value="{{data.clientSecret}}" readonly="readonly" />
+									<div class="settings-description secondary-font-color"><button class="clipboard" data-clipboard-target="[name=clientSecret]">{{_ "COPY_TO_CLIPBOARD"}}</button></div>
+								</div>
+							</div>
+							<div class="input-line double-col">
+								<label>{{_ "Authorization_URL"}}</label>
+								<div>
+									<input type="text" name="authorization_url" value="{{data.authorization_url}}" readonly="readonly" />
+									<div class="settings-description secondary-font-color"><button class="clipboard" data-clipboard-target="[name=authorization_url]">{{_ "COPY_TO_CLIPBOARD"}}</button></div>
+								</div>
+							</div>
+							<div class="input-line double-col">
+								<label>{{_ "Access_Token_URL"}}</label>
+								<div>
+									<input type="text" name="access_token_url" value="{{data.access_token_url}}" readonly="readonly" />
+									<div class="settings-description secondary-font-color"><button class="clipboard" data-clipboard-target="[name=access_token_url]">{{_ "COPY_TO_CLIPBOARD"}}</button></div>
+								</div>
+							</div>
+						{{/if}}
+						<div class="submit">
+							{{#if data.clientId}}
+							<button class="button danger delete"><i class="icon-trash"></i><span>{{_ "Delete"}}</span></button>
+							{{/if}}
+							<button class="button primary save"><i class="icon-send"></i><span>{{_ "Save_changes"}}</span></button>
+						</div>
+
+						{{else}}
+						{{_ "Not_authorized"}}
+						{{/if}}
+					</div>
+		</div>
+	</section>
+</template>
+
+<!-- -------------------------------------------------------catalog------------------------------------------------------------------------>
+
+<template name="adminCatalog">
+	<section class="page-container page-list flex-tab-main-content">
+		<header class="fixed-title border-component-color">
+			<div class="burger">
+				<i></i>
+				<i></i>
+				<i></i>
+
+			</div>
+			<a href="{{pathFor "admin-catalogs"}}"><i class="icon-angle-left"></i></a>
+			<h2>
+				<span class="room-title float-right">{{_ "Org_Category"}}</span>
+			</h2>
+		</header>
+
+		<div class="content-orgs">
+			<div class="section-content">
+						{{#if hasPermission}}
+						<div class="input-line double-col">
+							<label>{{_ "Active"}}</label>
+							<div>
+								<label><input class="input-monitor" type="radio" name="active" value="1" checked="{{$eq data.active true}}" /> {{_ "True"}}</label>
+								<label><input class="input-monitor" type="radio" name="active" value="0" checked="{{$eq data.active false}}" /> {{_ "False"}}</label>
+							</div>
+						</div>
+						<div class="input-line double-col">
+							<label>{{_ "Catalog_Name"}}</label>
+							<div>
+								<input type="text" name="name" value="{{data.name}}" />
+								<div class="settings-description secondary-font-color">{{_ "Give_the_category_a_name_This_will_be_seen_by_your_users"}}</div>
+							</div>
+						</div>
+
+
+						<div class="input-line double-col">
+							<label>{{_ "Parent_Category"}}</label>
+							<div>
+								<select name="parent">
+									<option value="0"></option>
+									{{#each categorys}}
+										<option value="{{_id}}" selected="{{$eq data.parent _id}}" >{{name}}</option>
+									{{/each}}
+								</select>
+							</div>
+						</div>
+
+						{{#if data._id}}
+						{{#if data.img.name}}
+						<li>
+							<div class="thumb"  style="width: 160px; height: 160px">
+								<div class="avatar">
+									<div class="avatar-image" style="background-image:url(/file-upload/{{data.img.id}}/{{data.img.name}}); border-radius: 100%"></div>
+								</div>
+							</div>
+
+						</li>
+						{{/if}}
+						<div class="input-line double-col">
+							<div class="button small-button custsom-style-button-upload">
+								{{_ "Select_catalog_img"}}
+								<input type="file" name="img-upload" class="input" id="upload" accept="{{fileUploadAllowedMediaTypes}}" >
+							</div>
+						</div>
+						{{/if}}
+
+						<div class="submit">
+							{{#if data._id}}
+							<button class="button danger delete"><i class="icon-trash"></i><span>{{_ "Delete"}}</span></button>
+							{{/if}}
+							<button class="button primary save"><i class="icon-send"></i><span>{{_ "Save_changes"}}</span></button>
+						</div>
+						{{else}}
+							{{_ "Not_authorized"}}
+						{{/if}}
+					</div>
+		</div>
+	</section>
+</template>
+
+<!-- -------------------------------------------------------org------------------------------------------------------------------------>
+
+<template name="adminOrg">
+	<section class="page-container page-list flex-tab-main-content">
+		<header class="fixed-title border-component-color">
+			<div class="burger">
+				<i></i>
+				<i></i>
+				<i></i>
+
+			</div>
+			<a href="{{pathFor "admin-orgs"}}"><i class="icon-angle-left"></i></a>
+			<h2>
+				<span class="room-title float-right">{{_ "Org_Edit"}}</span>
+			</h2>
+		</header>
+
+		<div class="content-orgs">
+			<div class="section-content">
+			{{#if hasPermission}}
+							<div class="input-line double-col">
+								<label>{{_ "Active"}}</label>
+								<div>
+									<label><input class="input-monitor" type="radio" name="active" value="1" checked="{{$eq data.active true}}" /> {{_ "True"}}</label>
+									<label><input class="input-monitor" type="radio" name="active" value="0" checked="{{$eq data.active false}}" /> {{_ "False"}}</label>
+								</div>
+							</div>
+							<div class="input-line double-col">
+								<label>{{_ "Org_Name"}}</label>
+								<div>
+									<input type="text" name="name" value="{{data.name}}" />
+									<div class="settings-description secondary-font-color">{{_ "Give_the_org_a_name_This_will_be_seen_by_your_users"}}</div>
+								</div>
+							</div>
+
+							<div class="input-line double-col">
+								<label>{{_ "Org_Adress"}}</label>
+								<div>
+									<input type="text" name="adress" value="{{data.adress}}" />
+									<div class="settings-description secondary-font-color">{{_ "Give_the_org_a_name_This_will_be_seen_by_your_users"}}</div>
+								</div>
+							</div>
+
+							<div class="input-line double-col">
+								<label>{{_ "Org_Descr"}}</label>
+								<div>
+									<input type="text" name="description" value="{{data.description}}" />
+									<div class="settings-description secondary-font-color">{{_ "Give_the_org_a_name_This_will_be_seen_by_your_users"}}</div>
+								</div>
+							</div>
+							<div class="input-line double-col">
+								<label>{{_ "Org_phone"}}</label>
+								<div>
+									<input type="text" name="phone" value="{{data.phone}}" />
+									<div class="settings-description secondary-font-color">{{_ "Give_the_org_a_name_This_will_be_seen_by_your_users"}}</div>
+								</div>
+							</div>
+
+							<div class="input-line double-col">
+								<label>{{_ "Org_website"}}</label>
+								<div>
+									<input type="text" name="website" value="{{data.website}}" />
+									<div class="settings-description secondary-font-color">{{_ "Give_the_org_a_name_This_will_be_seen_by_your_users"}}</div>
+								</div>
+							</div>
+
+							<div class="input-line double-col">
+								<label>{{_ "Org_Category"}}</label>
+								<div>
+									<select name="category">
+										{{#each categorys}}
+											<option value="{{url}}" selected="{{$eq data.category url}}" >{{name}}</option>
+										{{/each}}
+									</select>
+								</div>
+							</div>
+
+
+
+				<div class="input-line double-col">
+					<label>{{_ "Select_org_img"}}</label>
+					<div class="img-place custsom-style-button-upload">
+						<div style="background-image: url({{data.mainImg}});"
+							 class="img-upload avatar tertiary-background-color secondary-font-color {{#unless data.mainImg}}question-mark icon-camera{{/unless}}">
+						</div>
+
+						<input type="file" name="img-upload" class="input" id="img-upload" accept="image/*" >
+
+					</div>
+				</div>
+				<div class="input-line double-col">
+					<label>{{_ "Select_org_gal"}}</label>
+					<ul id="gallery">
+						<li class="">
+							<div class="img-place-small custsom-style-button-upload">
+								<div class="img-upload avatar tertiary-background-color question-mark icon-plus-squared secondary-font-color">
+								</div>
+								<input type="file" name="img-upload" class="input" id="gal-upload" accept="image/*" >
+							</div>
+						</li>
+						{{#each data.galleryImg }}
+						<li class="del-img" id="{{@index}}">
+							<div class="img-place-small custsom-style-button-upload">
+								<div class="img-upload avatar" style="background-image: url({{.}});"></div>
+							</div>
+						</li>
+						{{/each}}
+
+					</ul>
+				</div>
+
+
+				<div class="submit">
+					{{#if data._id}}
+						<button class="button danger delete"><i class="icon-trash"></i><span>{{_ "Delete"}}</span></button>
+						{{#unless data.channel}}
+							<button class="button primary createchat"><i class="icon-trash"></i><span>{{_ "Create_new"}}</span></button>
+						{{/unless}}
+					{{/if}}
+					<button class="button primary save"><i class="icon-send"></i><span>{{_ "Save_changes"}}</span></button>
+				</div>
+
+			{{else}}
+				{{_ "Not_authorized"}}
+			{{/if}}
+			</div>
+		</div>
+
+	</section>
+</template>
+
+<template name="adminCity">
+	<section class="page-container page-list flex-tab-main-content">
+		<header class="fixed-title border-component-color">
+			<div class="burger">
+				<i></i>
+				<i></i>
+				<i></i>
+
+			</div>
+			<a href="{{pathFor "adminCitys"}}"><i class="icon-angle-left"></i></a>
+			<h2>
+				<span class="room-title float-right">{{_ "City"}}</span>
+			</h2>
+		</header>
+
+		<div class="content-orgs">
+			<div class="section-content">
+				{{#if hasPermission}}
+				<div class="input-line double-col">
+					<label>{{_ "Active"}}</label>
+					<div>
+						<label><input class="input-monitor" type="radio" name="active" value="1" checked="{{$eq data.active true}}" /> {{_ "True"}}</label>
+						<label><input class="input-monitor" type="radio" name="active" value="0" checked="{{$eq data.active false}}" /> {{_ "False"}}</label>
+					</div>
+				</div>
+				<div class="input-line double-col">
+					<label>{{_ "Alias"}}</label>
+					<div>
+						<input type="text" placeholder="{{data.name}}" />
+
+					</div>
+				</div>
+
+				<div class="input-line double-col">
+					<label>{{_ "Ru_name"}}</label>
+					<div>
+						<input type="text" placeholder="{{data.runame}}" />
+
+					</div>
+				</div>
+
+
+				<div class="submit">
+					{{#if data._id}}
+					<button class="button danger delete"><i class="icon-trash"></i><span>{{_ "Delete"}}</span></button>
+					{{/if}}
+					<button class="button primary save"><i class="icon-send"></i><span>{{_ "Save_changes"}}</span></button>
+				</div>
+				{{else}}
+				{{_ "Not_authorized"}}
+				{{/if}}
+			</div>
+		</div>
+	</section>
+</template>

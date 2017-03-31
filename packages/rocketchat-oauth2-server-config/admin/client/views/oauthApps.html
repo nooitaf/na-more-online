@@ -1,0 +1,176 @@
+<template name="oauthApps">
+    <div class="permissions-manager">
+        {{#if hasPermission}}
+        <a href="{{pathFor "admin-oauth-app" }}" class="button primary new-role">{{_ "New_Application"}}</a>
+
+        <div class="rocket-form">
+            <div class="section">
+                <div class="admin-integrations-new-panel">
+                    {{#each applications}}
+                    <a href="{{pathFor "admin-oauth-app" id=_id}}">
+                    <div class="admin-integrations-new-item">
+                        <div class="admin-integrations-new-item-body">
+                            <div class="admin-integrations-new-item-title">
+                                {{name}}
+                            </div>
+                            <div class="admin-integrations-new-item-description">
+                                {{{_ "Created_at_s_by_s" (dateFormated _createdAt) _createdBy.username}}}
+                            </div>
+                        </div>
+                        <i class="icon-angle-right"></i>
+                    </div>
+                    </a>
+                    {{else}}
+                    <h1>{{_ "There_are_no_applications"}}</h1>
+                    {{/each}}
+                </div>
+            </div>
+        </div>
+        {{else}}
+        {{_ "Not_authorized"}}
+        {{/if}}
+    </div>
+</template>
+
+<!--=========================================================================================-->
+
+<template name="adminCatalogs">
+    <div class="permissions-manager">
+        {{#if hasPermission}}
+        <a href='{{pathFor "admin-catalog" }}' class="button primary new-role">{{_ "New_Category"}}</a>
+
+        <div class="rocket-form">
+            <div class="section">
+                <div class="admin-integrations-new-panel">
+                    {{#each applications}}
+                    <a href="{{pathFor "admin-catalog" id=_id}}">
+                    <div class="admin-integrations-new-item">
+                        <div class="admin-integrations-new-item-body">
+                            <div class="admin-integrations-new-item-title">
+                                {{name}}
+                            </div>
+
+                        </div>
+                        <i class="icon-angle-right"></i>
+                    </div>
+                    </a>
+                    {{else}}
+                    <h1>{{_ "There_are_no_catalogs"}}</h1>
+                    {{/each}}
+                </div>
+            </div>
+        </div>
+        {{else}}
+        {{_ "Not_authorized"}}
+        {{/if}}
+    </div>
+</template>
+
+<!--=========================================================================================-->
+
+<template name="adminOrgs">
+    <section class="page-container page-list flex-tab-main-content">
+
+        <header class="fixed-title border-component-color">
+            <div class="burger">
+                <i></i>
+                <i></i>
+                <i></i>
+
+            </div>
+            <h2>
+                <span class="room-title float-right">{{_ "Orgs_Manager"}}</span>
+            </h2>
+        </header>
+
+        <div class="content">
+            <form class="search-form" role="form">
+                <div class="input-line search">
+                    <input type="text" id="rooms-filter" placeholder="{{_ " Search"}}" dir="auto">
+                    <i class="icon-search secondary-font-color"></i>
+                    {{#unless isReady}}<i class="icon-spin"></i>{{/unless}}
+                </div>
+                <a href='{{pathFor "admin-org"}}' class="button primary new-role float-right">{{_ "New_Org"}}</a>
+            </form>
+
+            <div class="results">
+                {{{_ "Showing_results" roomCount}}}
+            </div>
+            <div class="list">
+                <table class="secondary-background-color">
+                    <thead>
+                    <tr class="admin-table-row">
+                        <th class="content-background-color border-component-color" width="30%">{{_ "Name"}}</th>
+                        <th class="content-background-color border-component-color" width="20%">{{_ "Active"}}</th>
+                        <th class="content-background-color border-component-color" width="20%">{{_ "City"}}</th>
+                        <th class="content-background-color border-component-color" width="10%">{{_ "Category"}}</th>
+                        <th class="content-background-color border-component-color" width="10%">{{_ "Alias"}}</th>
+                        <th class="content-background-color border-component-color" width="10%">{{_ "Owner"}}</th>
+
+                    </tr>
+                    </thead>
+                    <tbody>
+                    {{#each applications}}
+                    <tr class="room-info row-link" id='{{_id}}' org="{{_id}}">
+                        <td class="border-component-color">{{name}}</td>
+                        <td class="border-component-color">{{active}}</td>
+                        <td class="border-component-color">{{city}}</td>
+                        <td class="border-component-color">{{category}}</td>
+                        <td class="border-component-color">{{url}}</td>
+                        <td class="border-component-color">{{creator}}</td>
+                    </tr>
+                    {{/each}}
+                    </tbody>
+                </table>
+                {{#if hasMore}}
+                <button class="button secondary load-more {{isLoading}}">{{_ "Load_more"}}</button>
+                {{/if}}
+            </div>
+        </div>
+    </section>
+</template>
+
+<!--======================================================CTY==================================================================-->
+
+<template name="adminCitys">
+    <section class="page-container page-home page-static">
+        <header class="fixed-title border-component-color">
+            {{> burger}}
+            <h2>
+                <span class="room-title">{{_ "Citys_list"}}</span>
+            </h2>
+        </header>
+        <div class="content">
+
+            <div class="results">
+
+            </div>
+            <div class="list">
+                <table class="secondary-background-color">
+                    <thead>
+                    <tr class="admin-table-row">
+                        <th class="content-background-color border-component-color" width="30%">{{_ "Active"}}</th>
+                        <th class="content-background-color border-component-color" width="30%">{{_ "Name"}}</th>
+                        <th class="content-background-color border-component-color" width="20%">{{_ "Ru_name"}}</th>
+                        <!--<th class="content-background-color border-component-color" width="20%">{{_ "City"}}</th>-->
+                    </tr>
+                    </thead>
+
+                    <tbody>
+                    {{#each applications}}
+                        <tr class="room-info row-link" id='{{_id}}' city="{{_id}}">
+                            <td class="border-component-color">{{active}}</td>
+                            <td class="border-component-color">{{name}} </td>
+                            <td class="border-component-color">{{runame}}</td>
+                            <!--<td class="border-component-color">{{city}}</td>-->
+                        </tr>
+                    {{/each}}
+                    </tbody>
+                </table>
+                {{#if hasMore}}
+                <button class="button secondary load-more {{isLoading}}">{{_ "Load_more"}}</button>
+                {{/if}}
+            </div>
+        </div>
+    </section>
+</template>

@@ -1,0 +1,158 @@
+<template name="orgItem">
+
+
+        <header class="fixed-title border-component-color">
+            {{> burger}}
+
+            <div class="iconback">
+                <i class="icon-angle-left"></i>
+            </div>
+
+            <h2>
+                <!--<span class="room-title">{{_ "Catalog"}}</span>-->
+                <!--<span class="room-title">{{catalogTitle}}</span>-->
+                <span class="room-title">{{data.name}}</span>
+            </h2>
+        </header>
+        <div class="content-orgs">
+            {{#if isReady}}
+            <div class="panel-720">
+            <div class="wrapper-info">
+                <ul>
+                    <li class="org-img">
+                            <div class="cover">
+                                <div class="cover-image" style="background-image:url({{data.mainImg}})"></div>
+                            </div>
+                    </li>
+
+                    <li class="org-info">
+                        <h3>{{data.name}}</h3>
+                        <p><strong>{{_ "Description"}}:</strong> {{data.description}}</p>
+                        <p><strong>{{_ "Adress"}}:</strong> {{data.adress}}</p>
+                        <p><strong>{{_ "Phone"}}:</strong> {{data.phone}}</p>
+
+                        <p><strong>{{_ "Visitors"}}:</strong>
+                            <ul class="visitors">
+                                {{#each data.votes}}
+                                    <li>
+                                        <a href="{{#unless $eq this me}}/direct/{{.}}{{/unless}}" title="Начать диалог">
+                                        {{> avatar username=.}}
+                                        </a>
+                                    </li>
+                                {{/each}}
+                            </ul>
+                        </p>
+                    </li>
+                    <li>
+                        <div class="org-btn submit">
+                            {{#if hasChat}}
+                                <button class="button customsave chat">{{_ "Chat_window"}}</button>
+                             {{/if}}
+                            {{#if notManager}}
+                                <button class="button customcansel mng">{{_ "Связаться с менеджером"}}</button>
+                            {{/if}}
+                            {{#if data.website}}
+                                <a class="button customcansel link" href="{{data.website}}" target="_blank" title="{{data.website}}">{{_ "Сайт организации"}}</a>
+                            {{/if}}
+                            <button class="button like-user" value="{{data._id}}"><span><i class="icon-heart"></i></span></button>
+                        </div>
+                    </li>
+                </ul>
+            </div>
+
+                {{#if gallery}}
+            <div class="wrapper-gallery">
+                <ul style="width:{{width data.creator}}px;">
+
+                    {{#each gallery}}
+                        <li class="org-gallery-img">
+                            <div class="cover">
+                                <div class="cover-image"
+                                     style="background-image:url({{this}})">
+
+                                    <img src="{{this}}"  class="gallery-item invisible" >
+                                </div>
+                            </div>
+                        </li>
+                        <!--<li class="org-gallery-img">-->
+                            <!--<img src="{{image_url}}" height="{{getImageHeight image_dimensions.height}}" class="gallery-item">-->
+                        <!--</li>-->
+                    {{/each}}
+
+                </ul>
+            </div>
+                {{/if}}
+
+                {{#if feeds}}
+                <div class="wrapper-feed">
+                    <div class="feed-top">
+                        <h3>{{_ "Feedbacks"}}</h3>
+                        <button class="button feed customlight"><i class="icon-megaphone"></i><span> {{_ "Leave_feedback"}}</span></button>
+
+                    </div>
+                    <ul>
+                        {{#each feeds}}
+                        <li class='message'>
+                            <button class='thumb user-card-message' data-username='{{username}}' tabindex='1'>
+                                {{> avatar username=username}}
+                            </button>
+                            <button type='button' class='user user-card-message' data-username='{{username}}'
+                                    tabindex='1'>{{username}}</button>
+
+                            <span class="info">
+                                <span class="time">{{date createdAt}}</span>
+                            </span>
+                            <div class="body" dir="auto">
+                                {{message}}
+                            </div>
+                        </li>
+                        {{/each}}
+                    </ul>
+                </div>
+                {{/if}}
+            </div>
+            {{else}}
+            {{> loading}}
+            {{/if}}
+        </div>
+
+    <!--<script type="text/javascript">-->
+        <!--var myMap;-->
+
+        <!--// Дождёмся загрузки API и готовности DOM.-->
+        <!--ymaps.ready(init);-->
+
+        <!--function init() {-->
+            <!--// Создание экземпляра карты и его привязка к контейнеру с-->
+            <!--// заданным id ("map").-->
+            <!--myMap = new ymaps.Map('map', {-->
+                <!--// При инициализации карты обязательно нужно указать-->
+                <!--// её центр и коэффициент масштабирования.-->
+                <!--center: ["44.4071643,34.0076432"],-->
+                <!--zoom: 15-->
+            <!--});-->
+
+            <!--// Создаем геообъект с типом геометрии "Точка".-->
+            <!--myGeoObject = new ymaps.GeoObject({-->
+                <!--// Описание геометрии.-->
+                <!--geometry: {-->
+                    <!--type: "Point",-->
+                    <!--coordinates: ["44.4071643,34.0076432"]-->
+                <!--},-->
+                <!--// Свойства.-->
+                <!--properties: {-->
+                    <!--// Контент метки.-->
+                    <!--iconContent: '',-->
+                    <!--hintContent: ''-->
+                <!--}-->
+            <!--}, {-->
+                <!--// Опции.-->
+                <!--// Иконка метки будет растягиваться под размер ее содержимого.-->
+                <!--preset: 'islands#blackStretchyIcon'-->
+            <!--});-->
+
+            <!--myMap.geoObjects-->
+                    <!--.add(myGeoObject);-->
+        <!--}-->
+    <!--</script>-->
+</template>

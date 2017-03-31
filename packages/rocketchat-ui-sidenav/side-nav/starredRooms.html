@@ -1,0 +1,20 @@
+<template name="starredRooms">
+	{{#if total}}
+		<h3 class="side-btn-div openStarredRooms background-transparent-darker-hover  {{isActive}}">
+			<i class="toolbar-search__icon icon-star"></i>
+			{{_ "Favorites"}}
+			<span class='opt'>
+				<i class="{{#if openStarredRooms}}icon-angle-down{{else}}icon-angle-right{{/if}}" title="{{_ "Favorites"}}" aria-label="{{_ "Favorites"}}"></i>
+		</span>
+		</h3>
+
+		{{#if openStarredRooms}}
+
+			<ul>
+				{{#each rooms}}
+					{{> chatRoomItem }}
+				{{/each}}
+			</ul>
+		{{/if}}
+	{{/if}}
+</template>

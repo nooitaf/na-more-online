@@ -1,0 +1,14 @@
+<template name="flexTabBar">
+	<div class="flex-tab-container {{opened}}">
+		<section class="flex-tab">
+			{{> Template.dynamic template=template data=flexData}}
+		</section>
+		<div class="flex-tab-bar" role="toolbar">
+			{{#each buttons}}
+				<div class="tab-button {{active}} {{visible}} {{class}}" title="{{title}}">
+					<button aria-label="{{title}}"><i class="{{icon}}"></i></button>
+				</div>
+			{{/each}}
+		</div>
+	</div>
+</template>
